@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RGBColorCopy</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+.info{
+  text-align:center;
+  padding:8px;
+  font-size:13px;
+}
+
+.modeSwitch{
+  position:sticky;
+  top:0;
+  background:#111;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  z-index:10;
+}
+
+.switch{
+  width:50px;
+  height:26px;
+  background:#555;
+  border-radius:13px;
+  position:relative;
+  cursor:pointer;
+}
+.switch::after{
+  content:"";
+  width:22px;
+  height:22px;
+  background:#fff;
+  border-radius:50%;
+  position:absolute;
+  top:2px;
+  left:2px;
+  transition:0.3s;
+}
+.switch.active{
+  background:#4caf50;
+}
+.switch.active::after{
+  left:26px;
+}
+
+/* ← 常に表示に変更 */
+.controls{
+  padding:10px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.controlsText{
+  font-size:13px;
+}
+
+button{
+  padding:8px;
+  border:none;
+  border-radius:6px;
+}
+button.active{
+  background:#4caf50;
+  color:#fff;
+}
+
+.inputBox{
+  padding:10px;
+  display:none;
+  gap:10px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(14,1fr);
+  flex:1;
+}
+.color{
+  aspect-ratio:1;
+}
+
+.history{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:10px;
+  max-height:120px;
+  overflow:auto;
+}
+.history div{
+  width:30px;
+  height:30px;
+  border:1px solid #555;
+}
+
+.toast{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#000;
+  padding:10px;
+  border-radius:8px;
+  opacity:0;
+  transition:0.3s;
+}
+.toast.show{opacity:1;}
+
+.footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<div class="info">
+シングルタップでコピー / ダブルタップで色をプレビュー
+</div>
+
+<div class="modeSwitch">
+  <span>色→数値</span>
+  <div class="switch" id="modeSwitch"></div>
+  <span>数値→色</span>
+</div>
+
+
+<div class="controls" id="controls">
+  <div class="controlsText">コピー形式を選択→</div>
+
+  <button id="btnRGB" class="active">R,G,B</button>
+  <button id="btnHEX">HEX</button>
+</div>
+
+<div class="inputBox" id="inputBox">
+  <input id="colorInput" placeholder="#ff0000 or 255,0,0">
+  <button id="addBtn">追加</button>
+</div>
+
+<h2 style="margin:10px;font-size:14px;">
+履歴（最大50件) デバイスのデータ削除で消えます
+</h2>
+<div id="loadHistory" class="history" style="display:none;"></div>
+
+<div class="grid" id="grid"></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let mode="rgb";
+
+const grid = document.getElementById("grid");
+const inputBox = document.getElementById("inputBox");
+const loadHistory = document.getElementById("loadHistory");
+const modeSwitch = document.getElementById("modeSwitch");
+const btnRGB = document.getElementById("btnRGB");
+const btnHEX = document.getElementById("btnHEX");
+const addBtn = document.getElementById("addBtn");
+const colorInput = document.getElementById("colorInput");
+const toast = document.getElementById("toast");
+
+
+modeSwitch.onclick = ()=>{
+  modeSwitch.classList.toggle("active");
+  let isLoad = modeSwitch.classList.contains("active");
+
+  grid.style.display = isLoad ? "none" : "grid";
+  inputBox.style.display = isLoad ? "flex" : "none";
+  loadHistory.style.display = isLoad ? "flex" : "none";
+};
+
+
+btnRGB.onclick=()=>{
+  mode="rgb";
+  btnRGB.classList.add("active");
+  btnHEX.classList.remove("active");
+};
+btnHEX.onclick=()=>{
+  mode="hex";
+  btnHEX.classList.add("active");
+  btnRGB.classList.remove("active");
+};
+
+function toHex(r,g,b){
+  return "#"+r.toString(16).padStart(2,"0")+g.toString(16).padStart(2,"0")+b.toString(16).padStart(2,"0");
+}
+
+function copyColor(r,g,b){
+  let text = mode==="rgb"?`${r},${g},${b}`:toHex(r,g,b);
+  navigator.clipboard.writeText(text);
+  showToast(text);
+}
+
+function showToast(t){
+  toast.textContent=t+" コピー";
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1500);
+}
+
+
+let tapTimer=null;
+function handleTap(r,g,b){
+  if(tapTimer){
+    clearTimeout(tapTimer);
+    tapTimer=null;
+    preview(r,g,b);
+  }else{
+    tapTimer=setTimeout(()=>{
+      copyColor(r,g,b);
+      tapTimer=null;
+    },250);
+  }
+}
+
+
+function preview(r,g,b){
+  let invR=255-r, invG=255-g, invB=255-b;
+
+  let box=document.createElement("div");
+  box.style.position="fixed";
+  box.style.inset="0";
+  box.style.background=`rgb(${r},${g},${b})`;
+  box.style.zIndex="9999";
+
+  let btn=document.createElement("div");
+  btn.style.position="absolute";
+  btn.style.top="20px";
+  btn.style.right="20px";
+  btn.style.width="50px";
+  btn.style.height="50px";
+  btn.style.background=`rgb(${invR},${invG},${invB})`;
+  btn.style.display="flex";
+  btn.style.alignItems="center";
+  btn.style.justifyContent="center";
+  btn.style.fontSize="30px";
+  btn.style.fontWeight="bold";
+  btn.style.color=`rgb(${r},${g},${b})`;
+  btn.style.borderRadius="10px";
+  btn.textContent="×";
+
+  btn.onclick=(e)=>{
+    e.stopPropagation();
+    box.remove();
+  };
+
+  box.onclick=()=>box.remove();
+
+  box.appendChild(btn);
+  document.body.appendChild(box);
+}
+
+addBtn.onclick=()=>{
+  let v=colorInput.value.trim();
+  let r,g,b;
+
+  if(v.startsWith("#")){
+    v=v.replace("#","");
+    if(v.length===3)v=v.split("").map(c=>c+c).join("");
+    if(v.length!==6)return alert("不正な数値です");
+    r=parseInt(v.substr(0,2),16);
+    g=parseInt(v.substr(2,2),16);
+    b=parseInt(v.substr(4,2),16);
+  }else{
+    let p=v.split(",");
+    if(p.length!==3)return alert("不正な数値です");
+    r=+p[0];g=+p[1];b=+p[2];
+  }
+
+  if(r<0||r>255||g<0||g>255||b<0||b>255){
+    return alert("0〜255で入力してください");
+  }
+
+  addLoadHistory(r,g,b);
+};
+
+function getLoad(){
+  return JSON.parse(localStorage.getItem("loadColors")||"[]");
+}
+function saveLoad(a){
+  localStorage.setItem("loadColors",JSON.stringify(a));
+}
+
+function addLoadHistory(r,g,b){
+  let arr=getLoad();
+  let key=`${r},${g},${b}`;
+  arr=arr.filter(c=>c!==key);
+  arr.unshift(key);
+  arr=arr.slice(0,50);
+  saveLoad(arr);
+  renderLoad();
+}
+
+function renderLoad(){
+  loadHistory.innerHTML="";
+  getLoad().forEach(c=>{
+    let [r,g,b]=c.split(",");
+    let d=document.createElement("div");
+    d.style.background=`rgb(${r},${g},${b})`;
+    d.onclick=()=>handleTap(r,g,b);
+    loadHistory.appendChild(d);
+  });
+}
+
+
+let vals=[];
+for(let i=0;i<=240;i+=20)vals.push(i);
+vals.push(255);
+
+vals.forEach(r=>vals.forEach(g=>vals.forEach(b=>{
+  let d=document.createElement("div");
+  d.className="color";
+  d.style.background=`rgb(${r},${g},${b})`;
+  d.onclick=()=>handleTap(r,g,b);
+  grid.appendChild(d);
+})));
+
+
+renderLoad();
+</script>
+
+<footer class="footer">
+   <a href="https://github.com/sirogomaazarasi">開発者のGitHubはこちら</a>
+Copyright © 2026 SirogomaAZARASI All rights reserved.
+</footer>
+
+</body>
+</html>

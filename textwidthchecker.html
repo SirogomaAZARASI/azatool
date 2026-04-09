@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>全角半角判別ツール(無料) | AZAtool</title>
+<meta name="description" content="全角と半角の違いを色分けで一目で判別できる無料ツール。コードや文章を貼り付けるだけで、全角文字は赤、半角文字は緑、スペースも可視化してミスやバグを防ぎます。ブラウザ上で簡単に使えます。">
+
+<style>
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,sans-serif;
+  background:#0f1115;
+  color:#e6e6eb;
+}
+
+.wrap{
+  max-width:980px;
+  margin:auto;
+  padding:16px;
+}
+
+h1{
+  font-size:1.2rem;
+  margin:0 0 12px;
+}
+
+.panel{
+  background:#171a21;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px;
+}
+
+textarea{
+  width:100%;
+  min-height:120px;
+  background:#0f1115;
+  color:#e6e6eb;
+  border:1px solid #2a2f3a;
+  border-radius:6px;
+  padding:8px;
+  box-sizing: border-box;
+}
+
+.output{
+  white-space:pre-wrap;
+  border:1px solid #2a2f3a;
+  border-radius:6px;
+  padding:10px;
+  margin-top:10px;
+  background:#0f1115;
+  box-sizing: border-box;
+}
+
+.info{
+  font-size:12px;
+  opacity:.7;
+  margin-top:8px;
+}
+
+.footer{
+  text-align:center;
+  font-size:12px;
+  opacity:.6;
+  padding:16px 0 8px;
+}
+
+.half{ color:green; }
+.full{ color:red; }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <h1>全角半角判別ツール</h1>
+
+  <div class="panel">
+    <textarea id="input" placeholder="ここにコードを貼る"></textarea>
+
+    <div id="output" class="output"></div>
+
+    <div class="info">
+      ・半角 → <span style="color:green;">緑</span><br>
+      ・全角 → <span style="color:red;">赤</span><br>
+      ・半角スペース → <span style="color:green;">□</span><br>
+      ・全角スペース → <span style="color:red;">□</span>
+    </div>
+  </div>
+<div class="panel">
+  <h2 style="font-size:1rem;">このツールについて</h2>
+  <p style="font-size:13px;opacity:.8;">
+    このツールは全角文字と半角文字を色分けして表示し、スペースも可視化できる無料ツールです。
+    プログラミングやテキスト編集時のミス防止に役立ちます。
+  </p>
+</div>
+
+  <div class="footer">
+    copyright ©︎ 2026 SirogomaAZARASI All rights reserved.
+  </div>
+
+</div>
+
+<script>
+const input = document.getElementById("input");
+const output = document.getElementById("output");
+
+input.addEventListener("input", () => {
+  let text = input.value;
+
+  text = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  let result = "";
+
+  for (let char of text) {
+    if (char === "\n") {
+      result += "\n";
+      continue;
+    }
+
+    if (char === " ") {
+      result += `<span class="half">□</span>`;
+      continue;
+    }
+
+    if (char === "　") {
+      result += `<span class="full">□</span>`;
+      continue;
+    }
+
+    if (/[\x00-\x7F]/.test(char)) {
+      result += `<span class="half">${char}</span>`;
+    } else {
+      result += `<span class="full">${char}</span>`;
+    }
+  }
+
+  output.innerHTML = result;
+});
+</script>
+
+</body>
+</html>

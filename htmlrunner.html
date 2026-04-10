@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>HTML実行ツール | AZAtool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ブラウザでHTML・CSS・JavaScriptをリアルタイム実行できる無料ツール。AZAtoolのオンラインHTML実行環境。">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DK3VQGQTWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DK3VQGQTWC');
+</script>
+
+<style>
+
+body {
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+  padding-bottom: 60px;
+  background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+  color: #fff;
+}
+
+.left, .right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+textarea {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  resize: none;
+  font-family: monospace;
+  outline: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+}
+
+.divider {
+  width: 6px;
+  cursor: col-resize;
+  background: linear-gradient(to bottom, #00c6ff, #0072ff);
+}
+
+button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  backdrop-filter: blur(5px);
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.footer {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.footer a {
+  color: #66ccff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer .copyright {
+  font-size: 13px;
+  font-weight: 500;
+  background: linear-gradient(90deg, #ffffff, #bbbbbb);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+</style>
+</head>
+
+<body>
+
+<div class="left" id="left">
+  <div class="header">コード</div>
+  <textarea id="code"><!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #111;
+  color: #fff;
+}
+.box {
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<h1>HTML実行ツールの使い方</h1>
+
+<div class="box">
+<p>① 左のコードを自由に書き換える</p>
+<p>② 右にリアルタイムで結果が表示される</p>
+<p>③ HTML・CSS・JavaScriptすべて使える</p>
+<p>④ 上の「全画面」ボタンでプレビューを大きく表示</p>
+</div>
+
+<div class="box">
+<p>💡 ヒント</p>
+<p>ESCキーで全画面を戻せます</p>
+</div>
+
+<button onclick="alert('動作OK！')">テストボタン</button>
+
+</body>
+</html></textarea>
+</div>
+
+<div class="divider" id="divider"></div>
+
+<div class="right" id="right">
+  <div class="header">
+    プレビュー
+    <button id="fullscreenBtn">全画面</button>
+  </div>
+  <iframe id="preview"></iframe>
+</div>
+
+<div class="footer">
+  <a href="index.html">← ツール一覧に戻る</a><br>
+  <div class="copyright">
+    Copyright © 2026 SirogomaAZARASI All Rights Reserved.
+  </div>
+</div>
+
+<script>
+const code = document.getElementById("code");
+const preview = document.getElementById("preview");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+const right = document.getElementById("right");
+const left = document.getElementById("left");
+
+function run() {
+  const doc = preview.contentDocument;
+  doc.open();
+  doc.write(code.value);
+  doc.close();
+}
+
+code.addEventListener("input", run);
+run();
+
+let isFull = false;
+
+fullscreenBtn.onclick = () => {
+  isFull = !isFull;
+
+  if (isFull) {
+    right.classList.add("fullscreen");
+    left.style.display = "none";
+    fullscreenBtn.textContent = "戻る";
+  } else {
+    right.classList.remove("fullscreen");
+    left.style.display = "flex";
+    fullscreenBtn.textContent = "全画面";
+  }
+};
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && isFull) {
+    fullscreenBtn.click();
+  }
+});
+
+const divider = document.getElementById("divider");
+let isDragging = false;
+
+divider.addEventListener("mousedown", () => {
+  isDragging = true;
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  const percent = (e.clientX / window.innerWidth) * 100;
+  left.style.width = percent + "%";
+  right.style.width = (100 - percent) + "%";
+});
+</script>
+
+</body>
+</html>

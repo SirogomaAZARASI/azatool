@@ -6,18 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="ブラウザでHTML・CSS・JavaScriptをリアルタイム実行できる無料ツール。AZAtoolのオンラインHTML実行環境。">
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK3VQGQTWC"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DK3VQGQTWC');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DK3VQGQTWC');
 </script>
 
 <style>
-
 body {
   margin: 0;
   display: flex;
@@ -130,12 +127,19 @@ button {
 
 <body>
 
+<!-- SEO強化（外側を主役にする） -->
+<div style="position:absolute; left:-9999px;">
+  <h1>HTML実行ツール | AZAtool</h1>
+  <p>HTML・CSS・JavaScriptをブラウザ上でリアルタイム実行できる無料ツールです。</p>
+</div>
+
 <div class="left" id="left">
   <div class="header">コード</div>
   <textarea id="code"><!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<title>HTML実行ツール | AZAtool</title>
 <style>
 body {
   font-family: sans-serif;
@@ -153,7 +157,7 @@ body {
 </head>
 <body>
 
-<h1>HTML実行ツールの使い方</h1>
+<h1>HTML実行ツール | AZAtool</h1>
 
 <div class="box">
 <p>① 左のコードを自由に書き換える</p>
@@ -180,7 +184,7 @@ body {
     プレビュー
     <button id="fullscreenBtn">全画面</button>
   </div>
-	<iframe id="preview" sandbox="allow-scripts" aria-hidden="true"></iframe>
+  <iframe id="preview" loading="lazy"></iframe>
 </div>
 
 <div class="footer">
@@ -202,6 +206,9 @@ function run() {
   doc.open();
   doc.write(code.value);
   doc.close();
+
+  // タイトル強制（SEOブレ防止）
+  doc.title = "HTML実行ツール | AZAtool";
 }
 
 code.addEventListener("input", run);

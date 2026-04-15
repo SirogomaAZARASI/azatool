@@ -3,22 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>使い方｜DotCamera</title>
-
-<meta name="description" content="DotCameraの使い方を解説。画像をレトロなドット絵に変換する方法や、色数・ドット数の調整、カメラ機能、パレット保存機能の使い方を紹介します。">
-
-<link rel="canonical" href="https://sirogomaazarasi.github.io/azatool/dotcamerahint">
-
-<!-- Google tag -->
+<title>使い方｜色探し・コピーツール</title>
+<meta name="description" content="色探し・コピーツールの使い方ページです。RGB・HEXのコピーやカラーコード入力方法をわかりやすく解説。">
+  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK3VQGQTWC"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-DK3VQGQTWC');
-</script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-DK3VQGQTWC');
+</script>
 <style>
 body{
   margin:0;
@@ -66,8 +61,13 @@ a{
   text-align:center;
   margin-top:30px;
 }
+.footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#aaa;
+}
 
-/* フッター */
 .footer{
   position:fixed;
   bottom:10px;
@@ -108,93 +108,70 @@ a{
 }
 
 body{padding-bottom:80px;}
-</style>
 
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>DotCameraの使い方</h1>
+<h1>使い方</h1>
 
 <p>
-DotCameraは、画像をレトロなドット絵（ピクセルアート）に変換できる無料ツールです。
+このツールは「色を探す・コピーする」「数値から色を確認する」ことができるシンプルなカラーツールです。
 </p>
 
-<h2>① 画像を読み込む</h2>
+<h2>色 → 数値（カラーコードをコピー）</h2>
 <div class="box">
-<p>「ファイル選択」から画像をアップロードします。</p>
-<p>スマホ・PCどちらでも利用できます。</p>
-</div>
-
-<h2>② ドット数を調整</h2>
-<div class="box">
-<p>ドット数を変更すると画像の粗さが変わります。</p>
+<p>画面に表示されている色一覧から好きな色を選びます。</p>
 <ul>
-<li>小さい → 粗い（レトロ感強い）</li>
-<li>大きい → 細かい（元画像に近い）</li>
+<li><b>シングルタップ</b>：カラーコードをコピー</li>
+<li><b>ダブルタップ</b>：色を全画面でプレビュー</li>
+</ul>
+<p>コピー形式は上のボタンで切り替えできます。</p>
+<ul>
+<li>R,G,B → 255,0,0</li>
+<li>HEX → #ff0000</li>
 </ul>
 </div>
 
-<h2>③ 色数を調整</h2>
+<h2>数値 → 色（カラーコードから色を表示）</h2>
 <div class="box">
-<p>色数を減らすとレトロな雰囲気になります。</p>
+<p>上のスイッチをONにすると入力モードになります。</p>
+<p>入力欄にカラーコードを入力して「追加」を押してください。</p>
+<p>対応形式：</p>
 <ul>
-<li>少ない → ゲーム風</li>
-<li>多い → リアル寄り</li>
+<li>HEX → #ff0000 / #f00</li>
+<li>RGB → 255,0,0</li>
 </ul>
-<p>※プリセットモードでは変更できません</p>
+<p>入力した色は履歴に追加され、タップでコピーやプレビューができます。</p>
 </div>
 
-<h2>④ カラーモード</h2>
-<div class="box">
-<ul>
-<li>プリセット：用意された配色（色数変更不可）</li>
-<li>ランダム：自動生成（色数変更OK）</li>
-<li>手動：好きな色を設定</li>
-</ul>
-</div>
-
-<h2>⑤ 変換</h2>
-<div class="box">
-<p>「変換」ボタンを押すとドット絵になります。</p>
-</div>
-
-<h2>⑥ リアルタイム変換</h2>
-<div class="box">
-<p>「リアルタイム開始」でカメラ映像をそのままドット化できます。</p>
-</div>
-
-<h2>⑦ 保存</h2>
-<div class="box">
-<p>「保存」ボタンで画像をダウンロードできます。</p>
-</div>
-
-<h2>⑧ パレット機能</h2>
+<h2>履歴機能</h2>
 <div class="box">
 <ul>
-<li>パレット保存：色設定を保存</li>
-<li>読み込み：保存した色を再利用</li>
-<li>削除：不要なものを消せる</li>
+<li>最大50件まで保存</li>
+<li>新しいものが上に表示</li>
+<li>同じ色は重複しない</li>
+<li>ブラウザのデータ削除で消えます</li>
 </ul>
-
-<p>
-※ブラウザ内に保存されます（別端末には引き継がれません）
-</p>
-
-<p>
-色データはテキストとしてコピー可能です  
-例：255.000.000,000.255.000
-</p>
 </div>
 
-<a href="dotcamera.html" class="back">← DotCameraに戻る</a>
+<h2>コツ</h2>
+<div class="box">
+<ul>
+<li>ダブルタップで全画面表示すると色確認しやすい</li>
+<li>よく使う色は履歴に残すと便利</li>
+</ul>
+</div>
+
+<a href="rgbcolorcopy.html" style="color:#8ab4ff;">← ツールに戻る</a>
 
 </div>
 
 <div class="footer">
-  <a href="dotcamera.html">← DotCameraに戻る</a><br>
+  <a href="rgbcolorcopy.html">← rgbcolorcopyに戻る</a><br>
   <div class="copyright">
     Copyright © 2026 SirogomaAZARASI All Rights Reserved.
   </div>

@@ -5,30 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>カラーパレット生成｜AZAtool</title>
 <meta name="description" content="画像から色を抽出してカラーパレットを作成。DotCameraで使えるRGB形式や16進数でコピーできる無料ツール。">
-<!-- Google tag (gtag.js) -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK3VQGQTWC"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DK3VQGQTWC');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DK3VQGQTWC');
 </script>
+
 <style>
-  body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f1115;color:#e6e6eb}
-  .wrap{max-width:980px;margin:auto;padding:16px}
-  h1{font-size:1.2rem;margin:0 0 12px}
-  .panel{background:#171a21;border-radius:10px;padding:12px;margin-bottom:12px}
-  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  label{font-size:12px;opacity:.9}
-  input,select,button,textarea{background:#0f1115;color:#e6e6eb;border:1px solid #2a2f3a;border-radius:6px;padding:6px 8px}
-  button{cursor:pointer}
-  .palette{display:flex;flex-wrap:wrap;gap:8px}
-  .swatch{display:flex;align-items:center;gap:6px;background:#0f1115;border-radius:6px;padding:6px}
-  .box{width:20px;height:20px;border-radius:4px;border:1px solid #2a2f3a}
-  canvas{max-width:100%;border-radius:8px;border:1px solid #2a2f3a}
-  textarea{width:100%;min-height:70px}
-  .footer{text-align:center;font-size:12px;opacity:.6;padding:16px 0 8px}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,sans-serif;
+  background:#0f1115;
+  color:#e6e6eb;
+  padding-bottom:80px;
+}
+.wrap{max-width:980px;margin:auto;padding:16px}
+h1{font-size:1.2rem;margin:0 0 12px}
+
+.panel{
+  background:#171a21;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px
+}
+
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+label{font-size:12px;opacity:.9}
+
+input,select,button,textarea{
+  background:#0f1115;
+  color:#e6e6eb;
+  border:1px solid #2a2f3a;
+  border-radius:6px;
+  padding:6px 8px
+}
+
+button{cursor:pointer}
+
+.palette{display:flex;flex-wrap:wrap;gap:8px}
+
+.swatch{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:#0f1115;
+  border-radius:6px;
+  padding:6px
+}
+
+.box{
+  width:20px;
+  height:20px;
+  border-radius:4px;
+  border:1px solid #2a2f3a
+}
+
+canvas{
+  max-width:100%;
+  border-radius:8px;
+  border:1px solid #2a2f3a
+}
+
+textarea{width:100%;min-height:70px}
+
+/* 半透明フッター */
+.footer{
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  background:linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+  font-size:13px;
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 5px 20px rgba(0,0,0,0.3);
+  z-index:999;
+}
+
+.footer a{
+  color:#66ccff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.footer a:hover{
+  text-decoration:underline;
+}
+
+.footer .copyright{
+  font-size:13px;
+  font-weight:500;
+  background:linear-gradient(90deg,#ffffff,#bbbbbb);
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:0.3px;
+  text-shadow:0 1px 2px rgba(0,0,0,0.6);
+}
 </style>
 </head>
 
@@ -87,14 +168,13 @@
     </div>
     <div class="palette" id="palette"></div>
   </div>
-<div style="text-align:center;">
-  <a href="index.html" class="back-btn" style="color:#8ab4ff;">← ツール一覧に戻る</a>
 </div>
-<div>
-   <a href="https://github.com/sirogomaazarasi" style="color:#8ab4ff;">開発者のGitHubはこちら</a>
-  </div>
-  <div class="footer">
-    copyright ©︎ 2026 SirogomaAZARASI All rights reserved.
+
+<!-- フッター -->
+<div class="footer">
+  <a href="index.html">← ツール一覧に戻る</a><br>
+  <div class="copyright">
+    Copyright © 2026 SirogomaAZARASI All Rights Reserved.
   </div>
 </div>
 

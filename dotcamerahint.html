@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>使い方｜DotCamera</title>
 
@@ -9,70 +10,192 @@
 
 <link rel="canonical" href="https://sirogomaazarasi.github.io/azatool/dotcamerahint">
 
-<!-- Google tag (gtag.js) -->
+<!-- Google tag -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK3VQGQTWC"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-DK3VQGQTWC');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DK3VQGQTWC');
 </script>
 
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:#111;
+  color:#fff;
+  line-height:1.7;
+}
+.container{
+  max-width:800px;
+  margin:auto;
+  padding:20px;
+}
+h1{
+  font-size:22px;
+  margin-bottom:20px;
+}
+h2{
+  font-size:16px;
+  margin-top:30px;
+  border-left:4px solid #4caf50;
+  padding-left:10px;
+}
+p{
+  font-size:14px;
+}
+ul{
+  padding-left:20px;
+}
+li{
+  margin-bottom:6px;
+}
+.box{
+  background:#1b1b1b;
+  padding:15px;
+  border-radius:8px;
+  margin-top:10px;
+}
+a{
+  color:#4caf50;
+  text-decoration:none;
+}
+.back{
+  display:block;
+  text-align:center;
+  margin-top:30px;
+}
+
+/* フッター */
+.footer{
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  background:linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+  backdrop-filter:blur(10px);
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+  font-size:13px;
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 5px 20px rgba(0,0,0,0.3);
+  z-index:999;
+}
+
+.footer a{
+  color:#66ccff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.footer a:hover{
+  text-decoration:underline;
+}
+
+.footer .copyright{
+  font-size:13px;
+  font-weight:500;
+  background:linear-gradient(90deg,#ffffff,#bbbbbb);
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:0.3px;
+  text-shadow:0 1px 2px rgba(0,0,0,0.6);
+}
+
+body{padding-bottom:80px;}
+</style>
+
 </head>
+
 <body>
 
-<h1>画像をドット絵に変換する方法（DotCameraの使い方）</h1>
+<div class="container">
+
+<h1>DotCameraの使い方</h1>
 
 <p>
 DotCameraは、画像をレトロなドット絵（ピクセルアート）に変換できる無料ツールです。
-ここでは基本的な使い方を紹介します。
 </p>
 
 <h2>① 画像を読み込む</h2>
-<p>「ファイル選択」から画像をアップロードします。スマホでもPCでも利用できます。</p>
+<div class="box">
+<p>「ファイル選択」から画像をアップロードします。</p>
+<p>スマホ・PCどちらでも利用できます。</p>
+</div>
 
 <h2>② ドット数を調整</h2>
-<p>「ドット数」を変更すると、画像の粗さ（ピクセル感）が変わります。数値が小さいほど粗く、大きいほど細かくなります。</p>
+<div class="box">
+<p>ドット数を変更すると画像の粗さが変わります。</p>
+<ul>
+<li>小さい → 粗い（レトロ感強い）</li>
+<li>大きい → 細かい（元画像に近い）</li>
+</ul>
+</div>
 
 <h2>③ 色数を調整</h2>
-<p>「色数」を減らすと、よりレトロな雰囲気になります。少ない色ほどゲーム風の仕上がりになります。</p>
-
-<p>※プリセットモードを選択している場合は、色数の変更は反映されません。色数を調整したい場合は「ランダム」または「手動」モードを選択してください。</p>
-
-<h2>④ カラーモードを選ぶ</h2>
+<div class="box">
+<p>色数を減らすとレトロな雰囲気になります。</p>
 <ul>
-<li>プリセット：あらかじめ用意された配色（色数変更は不可）</li>
-<li>ランダム：自動で色生成（色数変更可能）</li>
-<li>手動：好きな色を指定（色数変更可能）</li>
+<li>少ない → ゲーム風</li>
+<li>多い → リアル寄り</li>
 </ul>
+<p>※プリセットモードでは変更できません</p>
+</div>
 
-<h2>⑤ 変換する</h2>
-<p>「変換」ボタンを押すと、ドット絵に変換されます。</p>
-
-<h2>⑥ カメラでリアルタイム変換</h2>
-<p>「リアルタイム開始」を押すと、カメラ映像がそのままドット絵になります。</p>
-
-<h2>⑦ 保存する</h2>
-<p>「保存」ボタンで画像をダウンロードできます。</p>
-
-<h2>⑧ パレット保存・読み込み機能について</h2>
-<p>作成したカラーパレットは保存して利用できます。</p>
-
+<h2>④ カラーモード</h2>
+<div class="box">
 <ul>
-<li>「パレット保存」：現在の色設定を保存</li>
-<li>保存後、リストから選択すると読み込み可能</li>
-<li>不要なパレットは削除できます</li>
+<li>プリセット：用意された配色（色数変更不可）</li>
+<li>ランダム：自動生成（色数変更OK）</li>
+<li>手動：好きな色を設定</li>
+</ul>
+</div>
+
+<h2>⑤ 変換</h2>
+<div class="box">
+<p>「変換」ボタンを押すとドット絵になります。</p>
+</div>
+
+<h2>⑥ リアルタイム変換</h2>
+<div class="box">
+<p>「リアルタイム開始」でカメラ映像をそのままドット化できます。</p>
+</div>
+
+<h2>⑦ 保存</h2>
+<div class="box">
+<p>「保存」ボタンで画像をダウンロードできます。</p>
+</div>
+
+<h2>⑧ パレット機能</h2>
+<div class="box">
+<ul>
+<li>パレット保存：色設定を保存</li>
+<li>読み込み：保存した色を再利用</li>
+<li>削除：不要なものを消せる</li>
 </ul>
 
 <p>
-※保存されたパレットはブラウザのローカルストレージに保存されます。  
-別の端末やブラウザには引き継がれません。  
-「色保存」ボタンを使うと、現在のパレットをテキストとしてコピーでき、手動で共有・保存できます。  
-コピーしたテキストは「色読み込み」に貼り付けることで利用できます。  
-例：255.000.000,000.255.000 のような形式
+※ブラウザ内に保存されます（別端末には引き継がれません）
 </p>
 
-<a href="https://sirogomaazarasi.github.io/azatool/dotcamera.html" style="color:#8ab4ff;">←dotcameraに戻る</a>
+<p>
+色データはテキストとしてコピー可能です  
+例：255.000.000,000.255.000
+</p>
+</div>
+</div>
+
+<div class="footer">
+  <a href="dotcamera.html">← DotCameraに戻る</a><br>
+  <div class="copyright">
+    Copyright © 2026 SirogomaAZARASI All Rights Reserved.
+  </div>
+</div>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <script>
-let path = location.pathname.replace("/azatool/", "");
+let path = location.pathname.split("/").pop();
 
 const map = {
   "dotcamera.html": "/dotcamera/",
@@ -17,7 +17,7 @@ const map = {
 };
 
 if (map[path]) {
-  location.href = "https://sirogomaazarasi.github.io/azasite/tool" + map[path];
+  location.replace("https://sirogomaazarasi.github.io/azasite/tool" + map[path]);
 }
 </script>
 <meta charset="UTF-8" />

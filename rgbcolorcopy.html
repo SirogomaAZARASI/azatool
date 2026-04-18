@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <script>
+let path = location.pathname.split("/").pop();
+
+const map = {
+  "dotcamera.html": "/dotcamera/",
+  "dotcamerasample.html": "/dotcamera/sample.html",
+  "dotcamerahint.html": "/dotcamera/hint.html",
+  "rgbcolorcopy.html": "/rgbcolorcopy/",
+  "rgbcolorcopyhint.html": "/rgbcolorcopy/hint.html",
+  "colorpalettegenerator.html": "/colorpalettegenerator/",
+  "htmlrunner.html": "/htmlrunner/",
+  "hexdecoctbinconverter.html": "/hexdecoctbinconverter/",
+  "textwidthchecker.html": "/textwidthchecker/"
+};
+
+if (map[path]) {
+  location.replace("https://sirogomaazarasi.github.io/azasite/tool" + map[path]);
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>色探し、コピーツール｜AZAtool</title>
